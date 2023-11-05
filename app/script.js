@@ -5,38 +5,39 @@ import { useState } from 'react';
 const App = () => {
 
   const [status, setStatus] = useState('off');
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState();
   const [timer, setTimer] = useState(null);
 
-  const formatTime = (time) => {
+  
+  const formatTime = (seconds) => {
 
     if (time === 0) {
-
       playBell();
-
-      if(status === 'work'){
-      setTime(20);
-      setStatus('rest');
-      } else if (status === 'reset'){
-      setTime(1200);
-      setStatus('work');
+      if (status === 'work') {
+          
+          setStatus('rest'); // Change the status to 'rest'
+          setTime(20); // Reset the time
+      } else if (status === 'rest') {
+          
+          setStatus('work'); // Change the status to 'work'
+          setTime(1200); // Set the time for work
       }
-
     }
 
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+    const minutes = Math.floor(seconds / 60);
+    const lastSec = seconds % 60;
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    const formattedSeconds = lastSec < 10 ? `0${lastSec}` : lastSec;
     return `${formattedMinutes}:${formattedSeconds}`;
   };
+
 
   const startTimer = () => {
     setTime(1200);
     setStatus('work');
     setTimer(setInterval(() => {
-      setTime(time => time - 1);
-    }, 1000));
+        setTime(time => time - 1);
+    }, 1000))
   }
 
   const stopTimer = () => {
@@ -49,12 +50,11 @@ const App = () => {
     window.close()
   }
 
-
-  playBell = () => {
+ 
+  const playBell = () => {
     const bell = new Audio('./sounds/bell.wav');
     bell.play();
   };
-
 
 
   return (
