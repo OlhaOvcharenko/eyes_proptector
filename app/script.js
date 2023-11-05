@@ -10,14 +10,18 @@ const App = () => {
 
   const formatTime = (time) => {
 
-    if (time === 0 && status === 'work') {
-      
+    if (time === 0) {
+
+      playBell();
+
+      if(status === 'work'){
       setTime(20);
       setStatus('rest');
-    } else if (time === 0 && status === 'reset'){
-
+      } else if (status === 'reset'){
       setTime(1200);
       setStatus('work');
+      }
+
     }
 
     const minutes = Math.floor(time / 60);
@@ -44,6 +48,12 @@ const App = () => {
   const closeApp = () => {
     window.close()
   }
+
+
+  playBell = () => {
+    const bell = new Audio('./sounds/bell.wav');
+    bell.play();
+  };
 
 
 
