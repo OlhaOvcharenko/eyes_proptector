@@ -14,7 +14,7 @@ const App = () => {
     if (time === 0) {
       playBell();
       setStatus(status === 'work' ? 'rest' : 'work'); // Toggle the status
-      setTime(status === 'work' ? 12 : 15); 
+      setTime(status === 'work' ? 20 : 1200); 
     }
 
     const minutes = Math.floor(seconds / 60);
@@ -26,7 +26,7 @@ const App = () => {
 
 
   const startTimer = () => {
-    setTime(15);
+    setTime(1200);
     setStatus('work');
     setTimer(setInterval(() => {
         setTime(time => time - 1);
